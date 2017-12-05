@@ -1,21 +1,14 @@
 import unittest
 
-inputfile = "in4a.txt"
-testfile = "in4a_test.txt"
+inputfile = "in5a.txt"
+testfile = "in5a_test.txt"
 
 instr = []
 
 def read_instr(inputfile):
     f = open(inputfile, 'r')
-    i = 0
     for line in f:
         instr.append(int(line))
-        i += 1
-
-def jump_inc(instr, loc):
-    new_loc = loc + instr[loc]
-    instr[loc] += 1
-    return new_loc
 
 def jump_inc_dec(instr, loc):
     new_loc = loc + instr[loc]
@@ -52,23 +45,6 @@ class MyTest(unittest.TestCase):
         self.assertFalse(isExit(test_instr, 4))
 
 if __name__ == '__main__':
-
-
-
-#    read_instr(testfile)
-#    print(traverse(instr, 1))
-
-#    instr = []
-
-#    read_instr(testfile)
-#    print(traverse(instr, 2))
-
-#    instr = []
-
-#    read_instr(inputfile)
-#    print(traverse(instr, 1))
-
-#    instr = []
 
     read_instr(inputfile)
     print(traverse(instr)) #, mode))
