@@ -8,15 +8,17 @@ else:
 HASHLENGTH = 256
 
 LAST_INDEX = HASHLENGTH - 1
-hashlist = range(0,HASHLENGTH)
+hashlist = range(0, HASHLENGTH)
 cursor = 0
 skip = 0
+
 
 def reverse(sublist):
     reversed_list = []
     for i in range(0, len(sublist)):
         reversed_list.append(sublist[len(sublist) - 1 - i])
     return reversed_list
+
 
 def reverse_circular_sublist(length):
     global cursor
@@ -32,11 +34,13 @@ def reverse_circular_sublist(length):
     cursor = (cursor + length + skip) % HASHLENGTH
     skip += 1
 
+
 def calc_dense_hash(index):
     ans = hashlist[index]
     for i in range(index + 1, index + 16):
         ans = ans ^ hashlist[i]
     return ans
+
 
 dense_hash = ""
 for line in open(inputfile, 'r'):
@@ -47,5 +51,5 @@ for line in open(inputfile, 'r'):
         for length in (17, 31, 73, 47, 23):
             reverse_circular_sublist(int(length))
     for i in range(16):
-        dense_hash += "{0:0{1}x}".format(calc_dense_hash(i * 16),2)
+        dense_hash += "{0:0{1}x}".format(calc_dense_hash(i * 16), 2)
 print(dense_hash)
