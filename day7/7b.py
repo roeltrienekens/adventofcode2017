@@ -1,9 +1,9 @@
 inputfile = "input.txt"
 testfile = "input_test.txt"
 
-tree = {}
-values = {}
-frequency = {}
+tree = {}       # dict with list of children per node
+values = {}     # weight of all nodes
+frequency = {}  # amount of occurences (root node is only one with freq 1)
 
 def parse_tree(inputfile):
     f = open(inputfile, 'r')
@@ -37,7 +37,6 @@ def find_root():
             return name
 
 def get_weight(node):
- #   print(node)
     weight = values[node]
     if tree.has_key(node):
         for child in tree[node]:
@@ -57,7 +56,6 @@ def is_balanced(node):
 def find_unbalanced_node(node):
     if tree.has_key(node):
         for child in tree[node]:
-#           print(child + " " + str(get_weight(child)))
             if not(is_balanced(child)):
                 return find_unbalanced_node(child)
         return node
@@ -71,6 +69,8 @@ if __name__ == '__main__':
     unbalanced_node = find_unbalanced_node(find_root())
     print("The unbalanced node is " + unbalanced_node)
     print(is_balanced(unbalanced_node))
+
+    # We now have the deepest unbalanced node, so one of the children should be changed.
 
     for child in tree[unbalanced_node]:
         print("Node weight of " + child + " is " + str(get_weight(child)))
