@@ -1,12 +1,14 @@
 import string
 
-DEBUG = True
+DEBUG = False
 
 regs_a = {}
 regs_b = {}
 for i in range(0, 26):
     regs_a[string.ascii_lowercase[i]] = 0
     regs_b[string.ascii_lowercase[i]] = 0
+
+regs_a['p'] = 1
 
 count = 0
 
@@ -22,9 +24,7 @@ def parse_instr(regs, rec_stack, send_stack, instr, do_count):
             count += 1
 #        print(instr)
         if operand[1] >= 'a':
-            print(send_stack[len(send_stack)-3:])
             send_stack.append(regs[operand[1]])
-            print(send_stack[len(send_stack)-3:])
         else:
             send_stack.append(int(operand[1]))
     elif operand[0] == 'set':
@@ -48,11 +48,8 @@ def parse_instr(regs, rec_stack, send_stack, instr, do_count):
         else:
             regs[operand[1]] %= int(operand[2])
     elif operand[0] == 'rcv':
-#        print(instr)
         if len(rec_stack) > 0:
-            print(rec_stack[0:5])
             regs[operand[1]] = rec_stack.pop(0)
-            print(rec_stack[0:5])
         else:
             return (True, 0)
     elif operand[0] == 'jgz':
@@ -85,17 +82,20 @@ while (len(stack_a) != 0 or len(stack_b) != 0 or first) and not (terminated_a an
     first = False
 
     #   Run A until our rcv queue is empty
-    print("Continuing with A")
+    if DEBUG:
+        print("Continuing with A")
     wait_b = False
     while terminated_a == False and wait_a == False:
         (wait_a, offset) = parse_instr(regs_a, stack_b, stack_a, lines[pc_a], True)
         pc_a += offset
         if pc_a < 0 or pc_a >= len(lines):
             terminated_a = True
-    print(count)
+    if DEBUG:
+        print(count)
 
     #   Run B until our rcv queue is empty
-    print("Continuing with B")
+    if DEBUG:
+        print("Continuing with B")
     wait_a = False
     while terminated_b == False and wait_b == False:
         (wait_b, offset) = parse_instr(regs_b, stack_a, stack_b, lines[pc_b], False)
@@ -122,5 +122,4 @@ while (len(stack_a) != 0 or len(stack_b) != 0 or first) and not (terminated_a an
 if DEBUG:
     print(stack_a)
     print(stack_b)
-    print(count)        # This gives the correct answer for any test input
-print(count / 2)        # This appears to give the correct answer for my puzzle input
+print(count)
