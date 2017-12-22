@@ -1,28 +1,23 @@
-myfile = open(r"in1a.txt")
+# noinspection SpellCheckingInspection
+inputfile = "input.txt"
 
-mylist = []
+puzzle_input = []
 
-c = myfile.read(1)
-while c != "\n":
-    mylist.append(c)
-    c = myfile.read(1)
-    print(c)
-
-print(mylist)
+for line in open(inputfile, 'r'):
+    # noinspection PyRedeclaration
+    puzzle_input = list(line.strip())
 
 captchaSum = 0
-listLength = len(mylist)
-offset = len(mylist) / 2
+LENGTH = len(puzzle_input)
 
-for i in range(0, len(mylist)):
-#    print mylist[i]
-#    print mylist[(i + offset) % listLength]
-    if mylist[i] == mylist[(i + offset) % listLength]:
-        captchaSum += int(mylist[i])
 
-# if mylist[0] == mylist[len(mylist) - 1]:
-#    captchaSum += int(mylist[0])
+def captcha(offset):
+    captcha_sum = 0
+    for i in range(0, LENGTH):
+        if puzzle_input[i] == puzzle_input[(i + offset) % LENGTH]:
+            captcha_sum += int(puzzle_input[i])
+    return captcha_sum
 
-print(captchaSum)
 
-#
+print("The Captcha for offset is 1 (next character) is: " + str(captcha(1)))
+print("The Captcha for offset is 1/2 the length is: " + str(captcha(LENGTH / 2)))

@@ -41,15 +41,17 @@ def calc_dense_hash(index):
         ans = ans ^ hashlist[i]
     return ans
 
-
-dense_hash = ""
-for line in open(inputfile, 'r'):
+def hash_knot(key):
+    dense_hash = ""
     for i in range(64):
-        for c in line.rstrip():
+        for c in key:
             length = ord(c)
             reverse_circular_sublist(int(length))
         for length in (17, 31, 73, 47, 23):
             reverse_circular_sublist(int(length))
     for i in range(16):
         dense_hash += "{0:0{1}x}".format(calc_dense_hash(i * 16), 2)
-print(dense_hash)
+    return dense_hash
+
+for line in open(inputfile, 'r'):
+    print(hash_knot(line))

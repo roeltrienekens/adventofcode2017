@@ -21,7 +21,7 @@ def calc_checksum(filename):
     return(checksum)
 
 def is_div(a, b):
-#    print('{0} {1} {2} {3}'.format(a, b, a % b, a / b))
+#    print('{0} {1} {2} {3}'.format(a, day12, a % day12, a / day12))
     if a % b == 0:
         return a / b
     else:
