@@ -84,7 +84,7 @@ first = True
 while (len(stack_a) != 0 or len(stack_b) != 0 or first) and not (terminated_a and terminated_b):
     first = False
 
-
+    #   Run A until our rcv queue is empty
     print("Continuing with A")
     wait_b = False
     while terminated_a == False and wait_a == False:
@@ -94,6 +94,7 @@ while (len(stack_a) != 0 or len(stack_b) != 0 or first) and not (terminated_a an
             terminated_a = True
     print(count)
 
+    #   Run B until our rcv queue is empty
     print("Continuing with B")
     wait_a = False
     while terminated_b == False and wait_b == False:
@@ -102,7 +103,7 @@ while (len(stack_a) != 0 or len(stack_b) != 0 or first) and not (terminated_a an
         if pc_b < 0 or pc_b >= len(lines):
             terminated_b = True
 
-#   A bunch of debugging stuff
+    #   A bunch of debugging stuff
     if DEBUG:
         print(str(len(stack_a)) + ", " + str(len(stack_b)))
         print(stack_a)
@@ -116,9 +117,10 @@ while (len(stack_a) != 0 or len(stack_b) != 0 or first) and not (terminated_a an
         else:
             print("Current instruction of B is " + lines[pc_b])
 
+    #   Then repeat until both queues are empty or both programs are terminated
 
 if DEBUG:
     print(stack_a)
     print(stack_b)
-    print(count)
-print(count / 2)
+    print(count)        # This gives the correct answer for any test input
+print(count / 2)        # This appears to give the correct answer for my puzzle input
