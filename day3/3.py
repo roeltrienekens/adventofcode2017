@@ -1,3 +1,6 @@
+# Adding this remark to see how it reflects in JIRA
+# TODO: Fix this remark
+
 # inputfile = ""
 # testfile = ""
 # test2file = ""
@@ -21,18 +24,13 @@ def get_coordinates(num):
     if num == 1:
         return (0, 0)
     while res == 0:         # till we find the answer
-#        print("num = {0}, ring = {1}, sum = {2}".format(num, ring, ((ring * 2) - 1) ** 2))
         if num <= (((2 * (ring) + 1) ** 2)):      # we found the right ring
-#            print("num = {0}, ring = {1}, sum = {2}".format(num, ring, (((2 * (ring) + 1) ** 2))))
 
             inner_block = (((2 * (ring - 1)) + 1) ** 2)
-#            print(inner_block)
 
             outer_block = (((2 * (ring + 1)) ** 2))
-#            print(outer_block)
 
             offset = num - inner_block
-#            print(offset)
             if offset <= (2 * ring):
                 x = ring
                 y = offset - ring
@@ -45,13 +43,9 @@ def get_coordinates(num):
             else:
                 x = offset - (7 * ring)
                 y = -1 * ring
-#            print(x)
-#            print(y)
             res = abs(x) + abs(y)
-#            print(res)
         else:
             ring += 1
-#    return res
     return(x, y)
 
 def get_value(x, y):
@@ -76,14 +70,10 @@ def day2(puz):
     i = 1
     sum = 0
     (x, y) = (0, 0)
-#    print("x " + str(x) + " y " + str(y))
     set_value(x, y, 1)
     while sum <= puz:
-#        print("sum " + str(sum))
         i += 1
-#        print("i " + str(i))
         (x, y) = get_coordinates(i)
-#        print("x " + str(x) + " y " + str(y))
         sum = get_surround(x, y)
         print("i " + str(i) + " x " + str(x) + " y " + str(y) + " sum " + str(sum))
         set_value(x, y, sum)
